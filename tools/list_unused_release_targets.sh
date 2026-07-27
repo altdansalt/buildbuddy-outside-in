@@ -26,6 +26,7 @@ readonly ROOT_TARGETS=(
   "//cli/cmd/bb:bb-windows-amd64"
   "//:gazelle"
   "//:buildifier"
+  "//cli/explain/compactgraph/testdata:generate"
   "//tools/lint:lint"
   "//tools/fix:fix"
 )
