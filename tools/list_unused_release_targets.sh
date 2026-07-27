@@ -19,6 +19,13 @@ readonly ROOT_TARGETS=(
   "//enterprise/deployment:executor_docker_default"
   "//enterprise/deployment:buildbuddy_ci_runner"
   "//cli/cmd/bb:bb"
+  "//cli/cmd/bb:bb-darwin-amd64"
+  "//cli/cmd/bb:bb-darwin-arm64"
+  "//cli/cmd/bb:bb-linux-amd64"
+  "//cli/cmd/bb:bb-linux-arm64"
+  "//cli/cmd/bb:bb-windows-amd64"
+  "//:gazelle"
+  "//:buildifier"
   "//tools/lint:lint"
   "//tools/fix:fix"
 )
