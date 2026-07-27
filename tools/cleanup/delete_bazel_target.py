@@ -202,7 +202,26 @@ def main() -> int:
         path.unlink()
 
     test_script = repo / "tools/cleanup/test_release_root.sh"
-    run([str(test_script), "--all"], cwd=repo)
+    try:
+        run([str(test_script), "--all"], cwd=repo)
+    except subprocess.CalledProcessError:
+        stash_message = f"Failed deletion of {args.target}"
+        run(
+            [
+                "git",
+                "stash",
+                "push",
+                "--include-untracked",
+                "--message",
+                stash_message,
+            ],
+            cwd=repo,
+        )
+        print(
+            f"Test gate failed; deletion changes were stashed as: {stash_message}",
+            file=sys.stderr,
+        )
+        raise
 
     changed = set(
         run(
