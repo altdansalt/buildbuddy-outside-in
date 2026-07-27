@@ -31,6 +31,7 @@ go_test(
         "no-sandbox",
     ],
     deps = [
+        "//server/testutil/quarantine",
         "//server/testutil/testenv",
         "//server/util/log",
         "@com_github_stretchr_testify//require",

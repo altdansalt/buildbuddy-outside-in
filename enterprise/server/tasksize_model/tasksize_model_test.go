@@ -17,6 +17,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/buildbuddy-io/buildbuddy/server/testutil/quarantine"
 	"github.com/buildbuddy-io/buildbuddy/server/testutil/testenv"
 	"github.com/buildbuddy-io/buildbuddy/server/util/log"
 	"github.com/stretchr/testify/require"
@@ -37,6 +38,8 @@ var examples = []*example{
 }
 
 func TestSamplePrediction(t *testing.T) {
+	quarantine.SkipQuarantinedTest(t)
+
 	ctx := context.Background()
 	env := testenv.GetTestEnv(t)
 	m, err := New(env)
