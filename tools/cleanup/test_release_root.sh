@@ -55,9 +55,16 @@ fi
 readonly tests_file="$(mktemp)"
 trap 'rm -f "$tests_file"' EXIT
 
+# Webdriver macros expose private wrapped go_tests which require the public
+# web_test rule to provide a browser endpoint. Replace those wrappers with
+# their web_test dependents. The manual linearizability test is intentionally
+# omitted because its long Firecracker stress run is not a per-deletion check.
 read -r -d '' query <<EOF || true
 let production = deps(${selected_roots}) intersect //... in
-tests(//...) intersect rdeps(//..., \$production, 1)
+let direct = tests(//...) intersect rdeps(//..., \$production, 1) in
+let web = kind(web_test, rdeps(//..., \$direct, 1)) in
+((\$direct except attr(name, ".*_wrapped_test", \$direct)) union \$web)
+except //enterprise/server/raft/store/linearizability:linearizability_test
 EOF
 
 cd "$repo"
