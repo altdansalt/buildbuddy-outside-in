@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-readonly RELEASE_TARGETS=(
+readonly ROOT_TARGETS=(
   "//server/cmd/buildbuddy:buildbuddy"
   "//server/cmd/buildbuddy:buildbuddy_image"
   "//enterprise/server/cmd/server:buildbuddy"
@@ -17,6 +17,8 @@ readonly RELEASE_TARGETS=(
   "//enterprise/deployment:executor_docker_default"
   "//enterprise/deployment:buildbuddy_ci_runner"
   "//cli/cmd/bb:bb"
+  "//tools/lint:lint"
+  "//tools/fix:fix"
 )
 
 usage() {
@@ -24,8 +26,8 @@ usage() {
 Usage: tools/list_unused_release_targets.sh [--label-kind] [-- <bazel query flags>]
 
 Prints one unused Bazel rule target per line. A rule is considered used if it is:
-  * a published binary or container-image target,
-  * in the transitive dependency closure of a published target,
+  * a published artifact or explicitly retained tooling target,
+  * in the transitive dependency closure of one of those roots,
   * a test that directly depends on anything in that closure, or
   * in the transitive dependency closure of one of those tests.
 
@@ -67,7 +69,7 @@ while (($#)); do
   esac
 done
 
-release_set="set(${RELEASE_TARGETS[*]})"
+root_set="set(${ROOT_TARGETS[*]})"
 
 # tests(//...) expands test_suite rules to the test rules they contain. The
 # depth-1 rdeps expression then selects tests which directly depend on any
@@ -77,8 +79,8 @@ release_set="set(${RELEASE_TARGETS[*]})"
 # retained: they are wrappers around tests rather than dependencies needed to
 # build or run a test, and repository-wide suites would retain every test.
 read -r -d '' query <<EOF || true
-let release = ${release_set} in
-let production = deps(\$release) in
+let roots = ${root_set} in
+let production = deps(\$roots) in
 let relevant_tests = tests(//...) intersect rdeps(//..., \$production, 1) in
 kind(".* rule", //...) except deps(\$production union \$relevant_tests)
 EOF
