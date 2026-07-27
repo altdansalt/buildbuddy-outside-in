@@ -14,6 +14,8 @@ readonly RELEASE_TARGETS=(
   "//enterprise/server/cmd/executor:executor_linux_amd64_static"
   "//enterprise/server/cmd/executor:executor_image"
   "//enterprise/server/cmd/cache_proxy:cache_proxy_image"
+  "//enterprise/deployment:executor_docker_default"
+  "//enterprise/deployment:buildbuddy_ci_runner"
   "//cli/cmd/bb:bb"
 )
 
