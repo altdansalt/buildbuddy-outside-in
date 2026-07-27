@@ -86,12 +86,23 @@ def rule_owners(repo: Path, source_label: str) -> set[str]:
 
 def deletable_targets(repo: Path) -> set[str]:
     result = run(
-        [str(repo / "tools/list_deletable_release_targets.py")],
+        [str(repo / "tools/cleanup/list_deletable_release_targets.py")],
         cwd=repo,
         stdout=subprocess.PIPE,
         text=True,
     )
     return {line.strip() for line in result.stdout.splitlines() if line.strip()}
+
+
+def require_clean_worktree(repo: Path) -> None:
+    result = run(
+        ["git", "status", "--porcelain"],
+        cwd=repo,
+        stdout=subprocess.PIPE,
+        text=True,
+    )
+    if result.stdout:
+        raise ValueError("--apply requires a clean Git worktree")
 
 
 def parse_args() -> argparse.Namespace:
@@ -112,7 +123,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
-    repo = Path(__file__).resolve().parent.parent
+    repo = Path(__file__).resolve().parents[2]
     if not args.target.startswith("//") or ":" not in args.target:
         raise ValueError("target must be an absolute workspace label containing ':'")
 
@@ -174,6 +185,7 @@ def main() -> int:
         print("Dry run only; pass --apply to make these changes.")
         return 0
 
+    require_clean_worktree(repo)
     run(
         [
             bazel(repo),
@@ -188,7 +200,41 @@ def main() -> int:
     )
     for path in exclusive_files:
         path.unlink()
-    print("Deletion applied. All removed files were tracked by Git and are recoverable.")
+
+    test_script = repo / "tools/cleanup/test_release_root.sh"
+    run([str(test_script), "--all"], cwd=repo)
+
+    changed = set(
+        run(
+            ["git", "diff", "--name-only"],
+            cwd=repo,
+            stdout=subprocess.PIPE,
+            text=True,
+        ).stdout.splitlines()
+    )
+    untracked = set(
+        run(
+            ["git", "ls-files", "--others", "--exclude-standard"],
+            cwd=repo,
+            stdout=subprocess.PIPE,
+            text=True,
+        ).stdout.splitlines()
+    )
+    expected = {build_relative.as_posix()}
+    expected.update(path.relative_to(repo).as_posix() for path in exclusive_files)
+    unexpected = (changed | untracked) - expected
+    if unexpected:
+        raise ValueError(
+            "tests or deletion tooling changed unexpected files; refusing to commit: "
+            + ", ".join(sorted(unexpected))
+        )
+
+    run(["git", "add", "--", *sorted(expected)], cwd=repo)
+    run(
+        ["git", "commit", "-m", f"Remove unused Bazel target {args.target}"],
+        cwd=repo,
+    )
+    print("Deletion tested and committed. Removed files remain recoverable via Git.")
     return 0
 
 

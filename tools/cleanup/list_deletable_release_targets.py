@@ -45,7 +45,7 @@ def read_unused_labels(repo: Path, source: str | None) -> list[str]:
         contents = Path(source).read_text()
     else:
         result = run(
-            [str(repo / "tools/list_unused_release_targets.sh")],
+            [str(repo / "tools/cleanup/list_unused_release_targets.sh")],
             cwd=repo,
             stdout=subprocess.PIPE,
             text=True,
@@ -106,7 +106,7 @@ def package_pattern(label: str) -> str:
 
 def main() -> int:
     args = parse_args()
-    repo = Path(__file__).resolve().parent.parent
+    repo = Path(__file__).resolve().parents[2]
     labels = read_unused_labels(repo, args.unused_targets)
     tracked = tracked_files(repo)
     query = query_rules(repo, labels)

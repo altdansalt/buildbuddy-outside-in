@@ -5,35 +5,16 @@
 
 set -euo pipefail
 
-readonly ROOT_TARGETS=(
-  "//server/cmd/buildbuddy:buildbuddy"
-  "//server/cmd/buildbuddy:buildbuddy_image"
-  "//enterprise/server/cmd/server:buildbuddy"
-  "//enterprise/server/cmd/server:buildbuddy_image"
-  "//enterprise/server/cmd/server:image_manifest"
-  "//enterprise/server/cmd/executor:executor"
-  "//enterprise/server/cmd/executor:executor_linux_amd64_static"
-  "//enterprise/server/cmd/executor:executor_image"
-  "//enterprise/server/cmd/cache_proxy:cache_proxy_image"
-  "//enterprise/server/cmd/cache_proxy:oci_image"
-  "//enterprise/deployment:executor_docker_default"
-  "//enterprise/deployment:buildbuddy_ci_runner"
-  "//cli/cmd/bb:bb"
-  "//cli/cmd/bb:bb-darwin-amd64"
-  "//cli/cmd/bb:bb-darwin-arm64"
-  "//cli/cmd/bb:bb-linux-amd64"
-  "//cli/cmd/bb:bb-linux-arm64"
-  "//cli/cmd/bb:bb-windows-amd64"
-  "//:gazelle"
-  "//:buildifier"
-  "//cli/explain/compactgraph/testdata:generate"
-  "//tools/lint:lint"
-  "//tools/fix:fix"
-)
+readonly script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+mapfile -t ROOT_TARGETS < <(sed -e '/^[[:space:]]*#/d' -e '/^[[:space:]]*$/d' "${script_dir}/release_roots.txt")
+if ((${#ROOT_TARGETS[@]} == 0)); then
+  echo "No roots found in ${script_dir}/release_roots.txt" >&2
+  exit 1
+fi
 
 usage() {
   cat <<'EOF'
-Usage: tools/list_unused_release_targets.sh [--label-kind] [-- <bazel query flags>]
+Usage: tools/cleanup/list_unused_release_targets.sh [--label-kind] [-- <bazel query flags>]
 
 Prints one unused Bazel rule target per line. A rule is considered used if it is:
   * a published artifact or explicitly retained tooling target,
@@ -50,7 +31,7 @@ Options:
   -h, --help    Show this help.
 
 Arguments following -- are passed to `bazel query`. For example:
-  tools/list_unused_release_targets.sh -- --color=no
+  tools/cleanup/list_unused_release_targets.sh -- --color=no
 EOF
 }
 
@@ -90,7 +71,7 @@ root_set="set(${ROOT_TARGETS[*]})"
 # build or run a test, and repository-wide suites would retain every test.
 read -r -d '' query <<EOF || true
 let roots = ${root_set} in
-let production = deps(\$roots) in
+let production = deps(\$roots) intersect //... in
 let relevant_tests = tests(//...) intersect rdeps(//..., \$production, 1) in
 kind(".* rule", //...) except deps(\$production union \$relevant_tests)
 EOF
