@@ -13,11 +13,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "disk_performance",
-    embed = [":disk_performance_lib"],
-)
-
 genrule(
     name = "disk_performance_json",
     outs = ["disk-performance.json"],
