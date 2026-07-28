@@ -10,9 +10,3 @@ go_library(
         "//server/util/status",
     ],
 )
-
-go_binary(
-    name = "bazelrbe",
-    embed = [":bazelrbe_lib"],
-    visibility = ["//visibility:public"],
-)
