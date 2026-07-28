@@ -1907,11 +1907,6 @@ ts_proto_library(
 )
 
 ts_proto_library(
-    name = "server_notification_ts_proto",
-    proto = ":server_notification_proto",
-)
-
-ts_proto_library(
     name = "execution_stats_ts_proto",
     proto = ":execution_stats_proto",
     deps = [
