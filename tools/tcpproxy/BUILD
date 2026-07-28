@@ -42,11 +42,3 @@ pkg_tar(
     name = "tar",
     srcs = [":tcpproxy"],
 )
-
-oci_push(
-    name = "push",
-    image = ":oci_image",
-    # Set the image tag with the bazel run flag "--//deployment:image_tag=TAG"
-    remote_tags = "//deployment:oci_tag_file",
-    repository = "gcr.io/flame-build/tcpproxy-oci",
-)
