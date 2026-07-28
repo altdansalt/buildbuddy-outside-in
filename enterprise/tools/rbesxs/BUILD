@@ -14,8 +14,3 @@ go_library(
         "//server/util/random",
     ],
 )
-
-go_binary(
-    name = "rbesxs",
-    embed = [":rbesxs_lib"],
-)
