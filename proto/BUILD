@@ -1091,16 +1091,6 @@ go_proto_library(
 )
 
 go_proto_library(
-    name = "buck_data_go_proto",
-    importpath = "github.com/buildbuddy-io/buildbuddy/proto/buckdata",
-    proto = ":buck_data_proto",
-    deps = [
-        ":buck_error_go_proto",
-        ":buck_host_sharing_go_proto",
-    ],
-)
-
-go_proto_library(
     name = "buck_error_go_proto",
     importpath = "github.com/buildbuddy-io/buildbuddy/proto/buckerror",
     proto = ":buck_error_proto",
