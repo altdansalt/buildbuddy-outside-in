@@ -62,17 +62,20 @@ done
 
 root_set="set(${ROOT_TARGETS[*]})"
 
-# tests(//...) expands test_suite rules to the test rules they contain. The
-# depth-1 rdeps expression then selects tests which directly depend on any
-# production artifact dependency. Using unbounded rdeps here would select almost
-# every test in the repository through shared low-level libraries. Keep each
-# selected test's full dependency closure. Test suites are deliberately not
-# retained: they are wrappers around tests rather than dependencies needed to
-# build or run a test, and repository-wide suites would retain every test.
+# tests(//...) expands test_suite rules to the test rules they contain. Ordinary
+# tests are selected when they directly depend on a production dependency.
+# ts_jasmine_node_test macros have six generated-rule edges between the tested
+# TypeScript library and the final jasmine_test, so select those at depth 6.
+# Using unbounded rdeps would select almost every test through shared low-level
+# libraries. Keep each selected test's full dependency closure. Test suites are
+# deliberately not retained: they are wrappers rather than dependencies needed
+# to build or run a test, and repository-wide suites would retain every test.
 read -r -d '' query <<EOF || true
 let roots = ${root_set} in
 let production = deps(\$roots) intersect //... in
-let relevant_tests = tests(//...) intersect rdeps(//..., \$production, 1) in
+let direct_tests = tests(//...) intersect rdeps(//..., \$production, 1) in
+let jasmine_tests = kind(jasmine_test, tests(//...) intersect rdeps(//..., \$production, 6)) in
+let relevant_tests = \$direct_tests union \$jasmine_tests in
 kind(".* rule", //...) except deps(\$production union \$relevant_tests)
 EOF
 
