@@ -103,6 +103,9 @@ echo "Running ${test_count} tests for ${root_description}: ${ordinary_count} tog
 test_args=(
   --experimental_output_paths=off
   --skip_incompatible_explicit_targets
+  # Deletion commits change STABLE_COMMIT_SHA, which would otherwise rebuild
+  # the stamped bb binary and rerun every testcli suite on every iteration.
+  "--workspace_status_command=${script_dir}/fixed_workspace_status.sh"
   "$@"
 )
 
