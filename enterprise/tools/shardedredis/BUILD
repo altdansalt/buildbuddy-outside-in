@@ -23,9 +23,3 @@ go_library(
         "@io_bazel_rules_go//go/runfiles",
     ],
 )
-
-go_binary(
-    name = "shardedredis",
-    embed = [":shardedredis_lib"],
-    visibility = ["//visibility:public"],
-)
