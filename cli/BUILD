@@ -27,9 +27,3 @@ py_binary(
     srcs = ["release.py"],
     visibility = ["//:__subpackages__"],
 )
-
-py_library(
-    name = "cli_py_library",
-    srcs = ["release.py"],
-    visibility = ["//:__subpackages__"],
-)
