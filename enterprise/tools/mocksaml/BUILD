@@ -12,8 +12,3 @@ go_library(
         "//server/util/log",
     ],
 )
-
-go_binary(
-    name = "mocksaml",
-    embed = [":mocksaml_lib"],
-)
