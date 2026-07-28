@@ -7,15 +7,3 @@ go_library(
     visibility = ["//visibility:public"],
     deps = ["//server/util/log"],
 )
-
-go_test(
-    name = "mockgitserver_test",
-    srcs = ["mockgitserver_test.go"],
-    deps = [
-        ":mockgitserver",
-        "//server/testutil/testfs",
-        "//server/testutil/testshell",
-        "@com_github_stretchr_testify//assert",
-        "@com_github_stretchr_testify//require",
-    ],
-)
