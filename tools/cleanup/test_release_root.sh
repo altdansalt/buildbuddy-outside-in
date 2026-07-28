@@ -53,7 +53,9 @@ else
 fi
 
 readonly tests_file="$(mktemp)"
-trap 'rm -f "$tests_file"' EXIT
+readonly ordinary_tests_file="$(mktemp)"
+readonly enormous_tests_file="$(mktemp)"
+trap 'rm -f "$tests_file" "$ordinary_tests_file" "$enormous_tests_file"' EXIT
 
 # Webdriver macros expose private wrapped go_tests which require the public
 # web_test rule to provide a browser endpoint. Replace those wrappers with
@@ -71,13 +73,39 @@ cd "$repo"
 "${bazel_cmd[@]}" query --noshow_progress --output=label "$query" >"$tests_file"
 
 test_count="$(wc -l <"$tests_file")"
-echo "Running ${test_count} tests for ${root_description}"
 if ((test_count == 0)); then
+  echo "Running 0 tests for ${root_description}"
   exit 0
 fi
 
-exec "${bazel_cmd[@]}" test \
-  --experimental_output_paths=off \
-  --skip_incompatible_explicit_targets \
-  "$@" \
-  --target_pattern_file="$tests_file"
+selected_tests="set($(tr '\n' ' ' <"$tests_file"))"
+"${bazel_cmd[@]}" query \
+  --noshow_progress \
+  --output=label \
+  "attr(size, enormous, ${selected_tests})" \
+  >"$enormous_tests_file"
+
+sort -o "$tests_file" "$tests_file"
+sort -o "$enormous_tests_file" "$enormous_tests_file"
+comm -23 "$tests_file" "$enormous_tests_file" >"$ordinary_tests_file"
+
+ordinary_count="$(wc -l <"$ordinary_tests_file")"
+enormous_count="$(wc -l <"$enormous_tests_file")"
+echo "Running ${test_count} tests for ${root_description}: ${ordinary_count} together, ${enormous_count} enormous tests individually"
+
+test_args=(
+  --experimental_output_paths=off
+  --skip_incompatible_explicit_targets
+  "$@"
+)
+
+if ((ordinary_count)); then
+  "${bazel_cmd[@]}" test \
+    "${test_args[@]}" \
+    --target_pattern_file="$ordinary_tests_file"
+fi
+
+while IFS= read -r enormous_test; do
+  echo "Running enormous test on its own: ${enormous_test}"
+  "${bazel_cmd[@]}" test "${test_args[@]}" "$enormous_test"
+done <"$enormous_tests_file"
