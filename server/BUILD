@@ -13,13 +13,6 @@ package(
     "buildbuddy_image",  # container_image
 ]]
 
-genquery(
-    name = "server_enterprise_deps",
-    expression = "filter(//enterprise, deps(//server))",
-    scope = ["//server"],
-    tags = ["manual"],
-)
-
 sh_test(
     name = "server_no_enterprise_deps_test",
     srcs = ["server_no_enterprise_deps_test.sh"],
