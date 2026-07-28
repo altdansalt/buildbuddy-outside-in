@@ -100,11 +100,6 @@ ts_library(
 )
 
 ts_library(
-    name = "memo",
-    srcs = ["memo.ts"],
-)
-
-ts_library(
     name = "proto",
     srcs = ["proto.ts"],
     deps = [
