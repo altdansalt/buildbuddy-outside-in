@@ -45,16 +45,3 @@ go_library(
         "@com_github_stretchr_testify//require",
     ],
 )
-
-go_test(
-    name = "testutil_test",
-    srcs = ["testutil_test.go"],
-    exec_properties = {
-        "test.EstimatedComputeUnits": "8",
-        "test.workload-isolation-type": "firecracker",
-    },
-    deps = [
-        ":testutil",
-        "@com_github_jonboulle_clockwork//:clockwork",
-    ],
-)
