@@ -13,9 +13,3 @@ go_library(
         "@org_golang_google_protobuf//types/known/timestamppb",
     ],
 )
-
-go_binary(
-    name = "jaegerquery",
-    embed = [":jaegerquery_lib"],
-    visibility = ["//visibility:public"],
-)
