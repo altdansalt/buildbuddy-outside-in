@@ -12,12 +12,6 @@ go_library(
     deps = ["//server/util/log"],
 )
 
-go_binary(
-    name = "tcpproxy",
-    embed = [":tcpproxy_lib"],
-    visibility = ["//visibility:public"],
-)
-
 go_image(
     name = "tcpproxy_image",
     base = "@buildbuddy_go_image_base//image",
