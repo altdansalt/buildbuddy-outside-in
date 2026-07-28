@@ -6,13 +6,6 @@ load("@rules_shell//shell:sh_test.bzl", "sh_test")
 # gazelle:default_visibility //cli:__subpackages__
 package(default_visibility = ["//cli:__subpackages__"])
 
-genquery(
-    name = "cli_enterprise_deps",
-    expression = "filter(//enterprise, deps(//cli))",
-    scope = ["//cli"],
-    tags = ["manual"],
-)
-
 sh_test(
     name = "cli_no_enterprise_deps_test",
     srcs = ["cli_no_enterprise_deps_test.sh"],
