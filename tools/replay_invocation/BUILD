@@ -33,9 +33,3 @@ go_library(
         "@org_golang_google_protobuf//types/known/timestamppb",
     ],
 )
-
-go_binary(
-    name = "replay_invocation",
-    embed = [":replay_invocation_lib"],
-    visibility = ["//visibility:public"],
-)
