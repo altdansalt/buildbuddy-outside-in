@@ -14,11 +14,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "baremetal_power",
-    embed = [":baremetal_power_lib"],
-)
-
 genrule(
     name = "baremetal_power_json",
     outs = ["baremetal-power.json"],
