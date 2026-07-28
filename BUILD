@@ -341,10 +341,3 @@ py_binary(
     visibility = ["//:__subpackages__"],
     deps = ["@pypi//requests"],
 )
-
-py_library(
-    name = "buildbuddy_py_library",
-    srcs = ["release.py"],
-    visibility = ["//:__subpackages__"],
-    deps = ["@pypi//requests"],
-)
