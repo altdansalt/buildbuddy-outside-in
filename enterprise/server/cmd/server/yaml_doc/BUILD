@@ -6,11 +6,6 @@ package(default_visibility = [
     "@buildbuddy_internal//:__subpackages__",
 ])
 
-go_binary(
-    name = "yaml_doc",
-    embed = [":yaml_doc_lib"],
-)
-
 go_library(
     name = "yaml_doc_lib",
     srcs = ["main.go"],
