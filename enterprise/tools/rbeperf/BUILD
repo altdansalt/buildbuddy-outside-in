@@ -6,35 +6,6 @@ load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
 package(default_visibility = ["//enterprise:__subpackages__"])
 
-go_library(
-    name = "rbeperf_lib",
-    srcs = ["rbeperf.go"],
-    importpath = "github.com/buildbuddy-io/buildbuddy/enterprise/tools/rbeperf",
-    visibility = ["//visibility:private"],
-    deps = [
-        "//enterprise/server/test/integration/remote_execution/rbeclient",
-        "//proto:remote_execution_go_proto",
-        "//server/remote_cache/cachetools",
-        "//server/remote_cache/digest",
-        "//server/util/bazel_request",
-        "//server/util/grpc_client",
-        "//server/util/histogram",
-        "//server/util/log",
-        "//server/util/proto",
-        "//server/util/random",
-        "//server/util/status",
-        "@com_github_google_uuid//:uuid",
-        "@com_github_mattn_go_shellwords//:go-shellwords",
-        "@com_github_prometheus_client_golang//prometheus",
-        "@com_github_prometheus_client_golang//prometheus/promauto",
-        "@com_github_prometheus_client_golang//prometheus/push",
-        "@org_golang_google_genproto_googleapis_bytestream//:bytestream",
-        "@org_golang_google_grpc//:grpc",
-        "@org_golang_google_grpc//metadata",
-        "@org_golang_google_protobuf//types/known/timestamppb",
-    ],
-)
-
 pkg_tar(
     name = "tar",
     srcs = [":rbeperf"],
