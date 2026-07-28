@@ -14,12 +14,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "generate_docs",
-    embed = [":generate_docs_lib"],
-    visibility = ["//visibility:public"],
-)
-
 genrule(
     name = "generate_mdx",
     outs = ["docs.mdx"],
