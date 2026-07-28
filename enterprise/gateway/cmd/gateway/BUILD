@@ -30,10 +30,3 @@ go_library(
         "@org_golang_google_grpc//:grpc",
     ],
 )
-
-container_image(
-    name = "gateway_image",
-    base = ":gateway_go_image",
-    tags = ["manual"],
-    visibility = ["//visibility:public"],
-)
