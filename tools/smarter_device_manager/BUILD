@@ -18,18 +18,6 @@ go_image(
     visibility = ["//visibility:public"],
 )
 
-container_push(
-    name = "push_image",
-    format = "Docker",
-    image = ":smarter_device_manager_image",
-    registry = "gcr.io",
-    repository = "flame-build/smarter-device-manager",
-    tag = "server_image",
-    tags = [
-        "manual",
-    ],
-)
-
 pkg_tar(
     name = "tar",
     srcs = [":smarter-device-manager"],
