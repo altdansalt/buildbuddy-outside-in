@@ -12,10 +12,3 @@ go_library(
         "@com_github_grafana_grafana_foundation_sdk_go//timeseries",
     ],
 )
-
-genrule(
-    name = "disk_performance_json",
-    outs = ["disk-performance.json"],
-    cmd = "$(location :disk_performance) > $@",
-    tools = [":disk_performance"],
-)
