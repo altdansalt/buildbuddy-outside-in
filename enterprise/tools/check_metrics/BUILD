@@ -21,9 +21,3 @@ go_library(
         "@org_golang_x_sync//errgroup",
     ],
 )
-
-go_binary(
-    name = "check_metrics",
-    embed = [":check_metrics_lib"],
-    visibility = ["//enterprise:__subpackages__"],
-)
