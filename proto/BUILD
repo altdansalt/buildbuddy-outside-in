@@ -938,22 +938,6 @@ ts_proto_library(
 )
 
 proto_library(
-    name = "kythe_service_proto",
-    srcs = ["kythe_service.proto"],
-    deps = [
-        "@io_kythe//kythe/proto:analysis_proto",
-        "@io_kythe//kythe/proto:explore_proto",
-        "@io_kythe//kythe/proto:filetree_proto",
-        "@io_kythe//kythe/proto:graph_proto",
-        "@io_kythe//kythe/proto:identifier_proto",
-        "@io_kythe//kythe/proto:link_proto",
-        "@io_kythe//kythe/proto:status_service_proto",
-        "@io_kythe//kythe/proto:storage_proto",
-        "@io_kythe//kythe/proto:xref_proto",
-    ],
-)
-
-proto_library(
     name = "ociregistry_proto",
     srcs = ["ociregistry.proto"],
 )
