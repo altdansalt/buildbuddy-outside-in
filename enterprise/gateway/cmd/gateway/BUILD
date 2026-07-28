@@ -31,13 +31,6 @@ go_library(
     ],
 )
 
-go_image(
-    name = "gateway_go_image",
-    base = "@buildbuddy_go_image_base//image",
-    binary = ":gateway",
-    tags = ["manual"],
-)
-
 container_image(
     name = "gateway_image",
     base = ":gateway_go_image",
