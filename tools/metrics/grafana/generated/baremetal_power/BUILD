@@ -13,10 +13,3 @@ go_library(
         "@com_github_grafana_grafana_foundation_sdk_go//timeseries",
     ],
 )
-
-genrule(
-    name = "baremetal_power_json",
-    outs = ["baremetal-power.json"],
-    cmd = "$(location :baremetal_power) > $@",
-    tools = [":baremetal_power"],
-)
