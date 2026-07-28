@@ -9,12 +9,3 @@ pkg_tar(
     name = "tar",
     srcs = [":metadata_server"],
 )
-
-oci_image(
-    name = "oci_image",
-    base = "@buildbuddy_go_oci_image_base",
-    entrypoint = ["/metadata_server"],
-    target_compatible_with = ["@platforms//os:linux"],
-    tars = [":tar"],
-    visibility = ["//visibility:public"],
-)
