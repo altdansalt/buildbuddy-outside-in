@@ -4,14 +4,6 @@ load("@io_bazel_rules_k8s//k8s:object.bzl", "k8s_object")
 load("@io_bazel_rules_k8s//k8s:objects.bzl", "k8s_objects")
 load("//rules/flags:index.bzl", "write_flag_to_file")
 
-k8s_objects(
-    name = "dev",
-    objects = [
-        ":buildbuddy_dev_app",
-    ],
-    tags = ["manual"],
-)
-
 # Set --//deployment:image_tag to set the tag when running container_push
 # targets. If unset, defaults to "development".
 #
