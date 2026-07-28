@@ -61,14 +61,17 @@ trap 'rm -f "$tests_file" "$ordinary_tests_file" "$enormous_tests_file"' EXIT
 # web_test rule to provide a browser endpoint. Replace those wrappers with
 # their web_test dependents. Jasmine macros put six generated-rule edges between
 # the tested TypeScript library and the final test, so include those at depth 6.
-# The manual linearizability test is intentionally omitted because its long
+# CLI integration tests use testcli to run the published bb binary through a
+# coverage-free tool wrapper, so include direct testcli users explicitly. The
+# manual linearizability test is intentionally omitted because its long
 # Firecracker stress run is not a per-deletion check.
 read -r -d '' query <<EOF || true
 let production = deps(${selected_roots}) intersect //... in
 let direct = tests(//...) intersect rdeps(//..., \$production, 1) in
 let jasmine = kind(jasmine_test, tests(//...) intersect rdeps(//..., \$production, 6)) in
-let selected = \$direct union \$jasmine in
-let web = kind(web_test, rdeps(//..., \$direct, 1)) in
+let cli = tests(//...) intersect rdeps(//..., //cli/testutil/testcli:testcli, 1) in
+let selected = \$direct union \$jasmine union \$cli in
+let web = kind(web_test, rdeps(//..., \$selected, 1)) in
 ((\$selected except attr(name, ".*_wrapped_test", \$selected)) union \$web)
 except //enterprise/server/raft/store/linearizability:linearizability_test
 EOF

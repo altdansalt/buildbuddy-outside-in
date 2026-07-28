@@ -66,6 +66,8 @@ root_set="set(${ROOT_TARGETS[*]})"
 # tests are selected when they directly depend on a production dependency.
 # ts_jasmine_node_test macros have six generated-rule edges between the tested
 # TypeScript library and the final jasmine_test, so select those at depth 6.
+# CLI integration tests use testcli, which runs the published bb binary through
+# a coverage-free tool wrapper, so retain direct testcli users explicitly.
 # Using unbounded rdeps would select almost every test through shared low-level
 # libraries. Keep each selected test's full dependency closure. Test suites are
 # deliberately not retained: they are wrappers rather than dependencies needed
@@ -75,7 +77,8 @@ let roots = ${root_set} in
 let production = deps(\$roots) intersect //... in
 let direct_tests = tests(//...) intersect rdeps(//..., \$production, 1) in
 let jasmine_tests = kind(jasmine_test, tests(//...) intersect rdeps(//..., \$production, 6)) in
-let relevant_tests = \$direct_tests union \$jasmine_tests in
+let cli_tests = tests(//...) intersect rdeps(//..., //cli/testutil/testcli:testcli, 1) in
+let relevant_tests = \$direct_tests union \$jasmine_tests union \$cli_tests in
 kind(".* rule", //...) except deps(\$production union \$relevant_tests)
 EOF
 
