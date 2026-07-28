@@ -883,15 +883,6 @@ proto_library(
 )
 
 proto_library(
-    name = "search_rating_proto",
-    srcs = ["search_rating.proto"],
-    deps = [
-        ":git_proto",
-        ":search_proto",
-    ],
-)
-
-proto_library(
     name = "cache_service_proto",
     srcs = ["cache_service.proto"],
     deps = [
