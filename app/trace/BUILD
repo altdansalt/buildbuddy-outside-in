@@ -94,6 +94,15 @@ ts_library(
     ],
 )
 
+ts_jasmine_node_test(
+    name = "compact_trace_test",
+    srcs = ["compact_trace_test.ts"],
+    deps = [
+        ":compact_trace",
+        ":trace_events",
+    ],
+)
+
 ts_library(
     name = "trace_viewer_panel",
     srcs = ["trace_viewer_panel.ts"],
