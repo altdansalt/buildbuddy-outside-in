@@ -13,11 +13,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "baremetal_networking",
-    embed = [":baremetal_networking_lib"],
-)
-
 genrule(
     name = "baremetal_networking_json",
     outs = ["baremetal-networking.json"],
