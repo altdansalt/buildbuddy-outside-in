@@ -21,13 +21,6 @@
 # Repository and test-maintenance tooling explicitly retained by this cleanup.
 //:gazelle
 //:buildifier
-//:go
-//:gofmt
-//:release
-//:requirements
-//:modules_map
-//:gazelle_python_manifest.update
-//:gazelle_python_manifest.test
 //cli/explain/compactgraph/testdata:generate
 //tools/lint:lint
 //tools/fix:fix
