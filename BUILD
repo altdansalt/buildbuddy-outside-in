@@ -234,12 +234,6 @@ buildifier(
     name = "buildifier",
 )
 
-# Example usage: "bazel run //:gofmt -- -w ."
-go_sdk_tool(
-    name = "gofmt",
-    goroot_relative_path = "bin/gofmt",
-)
-
 exports_files([
     ".swcrc",
     "package.json",
