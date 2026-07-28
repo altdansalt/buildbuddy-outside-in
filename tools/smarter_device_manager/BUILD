@@ -34,11 +34,3 @@ pkg_tar(
     name = "tar",
     srcs = [":smarter-device-manager"],
 )
-
-oci_push(
-    name = "push",
-    image = ":oci_image",
-    # Set the image tag with the bazel run flag "--//deployment:image_tag=TAG"
-    remote_tags = "//deployment:oci_tag_file",
-    repository = "gcr.io/flame-build/smarter-device-manager-oci",
-)
