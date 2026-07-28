@@ -12,10 +12,4 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "agent_review",
-    embed = [":agent_review_lib"],
-    visibility = ["//enterprise:__subpackages__"],
-)
-
 package(default_visibility = ["//enterprise:__subpackages__"])
