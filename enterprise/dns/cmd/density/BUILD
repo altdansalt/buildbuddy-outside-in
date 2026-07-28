@@ -27,10 +27,3 @@ go_library(
         "@com_github_miekg_dns//:dns",
     ],
 )
-
-container_image(
-    name = "density_image",
-    base = ":density_go_image",
-    tags = ["manual"],
-    visibility = ["//visibility:public"],
-)
