@@ -2,14 +2,6 @@ load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 
 package(default_visibility = ["//enterprise:__subpackages__"])
 
-go_binary(
-    name = "upload_local_snapshot",
-    embed = [":upload_local_snapshot_lib"],
-    pure = "on",
-    static = "on",
-    target_compatible_with = ["@platforms//os:linux"],
-)
-
 go_library(
     name = "upload_local_snapshot_lib",
     srcs = ["upload_local_snapshot.go"],
