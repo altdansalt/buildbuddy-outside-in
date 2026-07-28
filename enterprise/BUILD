@@ -10,13 +10,3 @@ filegroup(
     ],
     visibility = ["//visibility:public"],
 )
-
-go_library(
-    name = "bundle",
-    srcs = ["bundle.go"],
-    embedsrcs = [":licenses"],
-    importpath = "github.com/buildbuddy-io/buildbuddy/enterprise",
-    deps = [
-        "//server/util/fileresolver",
-    ],
-)
