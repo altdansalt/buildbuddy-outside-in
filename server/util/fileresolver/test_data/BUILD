@@ -6,14 +6,6 @@ package(
 )
 
 filegroup(
-    name = "embedsrcs",
-    srcs = [
-        "embedded_dir/embedded_child.txt",
-        "embedded_file.txt",
-    ],
-)
-
-filegroup(
     name = "runfiles",
     srcs = ["runfile.txt"],
 )
