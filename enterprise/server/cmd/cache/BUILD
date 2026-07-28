@@ -9,12 +9,3 @@ pkg_tar(
     name = "tar",
     srcs = [":cache"],
 )
-
-oci_image(
-    name = "oci_image",
-    base = "@buildbuddy_go_oci_image_base",
-    entrypoint = ["/cache"],
-    target_compatible_with = ["@platforms//os:linux"],
-    tars = [":tar"],
-    visibility = ["//visibility:public"],
-)
