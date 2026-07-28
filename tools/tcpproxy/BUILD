@@ -25,8 +25,3 @@ go_image(
     tags = ["manual"],
     visibility = ["//visibility:public"],
 )
-
-pkg_tar(
-    name = "tar",
-    srcs = [":tcpproxy"],
-)
