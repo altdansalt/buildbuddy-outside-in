@@ -19,9 +19,3 @@ go_library(
         "@org_golang_google_protobuf//encoding/protojson",
     ],
 )
-
-go_binary(
-    name = "get_executions",
-    embed = [":get_executions_lib"],
-    visibility = ["//visibility:public"],
-)
