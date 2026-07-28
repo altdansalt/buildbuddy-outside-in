@@ -6,17 +6,6 @@ package(default_visibility = [
     "@buildbuddy_internal//:__subpackages__",
 ])
 
-go_library(
-    name = "yaml_doc_lib",
-    srcs = ["main.go"],
-    importpath = "github.com/buildbuddy-io/buildbuddy/enterprise/server/cmd/server/yaml_doc",
-    visibility = ["//visibility:private"],
-    deps = [
-        "//enterprise/server/cmd/server:server_lib",
-        "//server/util/flagutil/yaml",
-    ],
-)
-
 genrule(
     name = "generate_mdx",
     srcs = [":generate_yaml"],
