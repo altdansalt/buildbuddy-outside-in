@@ -53,11 +53,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "cache",
-    embed = [":cache_lib"],
-)
-
 pkg_tar(
     name = "tar",
     srcs = [":cache"],
