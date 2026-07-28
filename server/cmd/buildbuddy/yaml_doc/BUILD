@@ -1,11 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 
-go_binary(
-    name = "yaml_doc",
-    embed = [":yaml_doc_lib"],
-    visibility = ["//visibility:public"],
-)
-
 go_library(
     name = "yaml_doc_lib",
     srcs = ["main.go"],
