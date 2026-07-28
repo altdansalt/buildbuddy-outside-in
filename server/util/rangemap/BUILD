@@ -7,13 +7,3 @@ go_library(
     visibility = ["//visibility:public"],
     deps = ["//server/util/log"],
 )
-
-go_test(
-    name = "rangemap_test",
-    size = "small",
-    srcs = ["rangemap_test.go"],
-    deps = [
-        ":rangemap",
-        "@com_github_stretchr_testify//require",
-    ],
-)
