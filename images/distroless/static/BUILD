@@ -118,20 +118,3 @@ image_manifest(
     tags = ["manual"],
     user = "root",
 )
-
-# Load a multi-platform image
-image_load(
-    name = "load",
-    # Explicitly use containerd for clarity. The container will be accessible
-    # via `nerdctl` in the "moby" namespace.
-    #
-    # We use containerd, as advised by `rules_img`, to avoid `docker load`,
-    # which, if the host system is not using the containerd backend for docker,
-    # will create a custom docker manifest.
-    # Loading into containerd allows us to load the exact OCI image we've built
-    # with the expected digest.
-    daemon = "containerd",
-    image = ":index",  # References an image_index
-    tag = "bb-distroless_static:latest",
-    tags = ["manual"],
-)
