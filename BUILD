@@ -128,6 +128,15 @@ gazelle_binary(
     ],
 )
 
+pip_compile(
+    name = "requirements",
+    exec_properties = {
+        "dockerNetwork": "bridge",
+    },
+    requirements_in = "requirements.txt",
+    requirements_txt = "requirements.lock",
+)
+
 exports_files(["requirements.lock"])
 
 # Gazelle python extension needs a manifest file mapping from
