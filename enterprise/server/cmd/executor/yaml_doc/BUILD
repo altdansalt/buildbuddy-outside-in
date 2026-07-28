@@ -2,11 +2,6 @@ load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 
 package(default_visibility = ["//enterprise:__subpackages__"])
 
-go_binary(
-    name = "yaml_doc",
-    embed = [":yaml_doc_lib"],
-)
-
 go_library(
     name = "yaml_doc_lib",
     srcs = ["main.go"],
