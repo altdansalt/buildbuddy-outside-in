@@ -44,18 +44,6 @@ go_image(
     visibility = ["//visibility:public"],
 )
 
-# Definitions for uploading new default base docker image.
-container_push(
-    name = "push_server_image",
-    format = "Docker",
-    image = ":server_image",
-    registry = "gcr.io",
-    repository = "flame-build/codesearch",  # Note flame-build, not flame-public.
-    # Set the image tag with the bazel run flag "--//deployment:image_tag=TAG"
-    tag_file = "//deployment:image_tag_file",
-    tags = ["manual"],  # Don't include this target in wildcard patterns
-)
-
 pkg_tar(
     name = "tar",
     srcs = [":server"],
