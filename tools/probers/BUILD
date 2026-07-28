@@ -2,26 +2,6 @@ load("@io_bazel_rules_docker//container:container.bzl", "container_image", "cont
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_push")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
-container_image(
-    name = "probers_image",
-    base = "@bazel_image_base//image",
-    entrypoint = [
-        "/cloudprober",
-        "--logtostderr",
-    ],
-    files = [
-        "//tools/probers/bazelcache",
-        "//tools/probers/bazelrbe",
-        "//tools/probers/remote_runner",
-        "@cloudprober",
-    ],
-    tags = ["manual"],
-    tars = [
-        "//server/util/bazel:bazel_binaries_tar",
-    ],
-    visibility = ["//visibility:public"],
-)
-
 container_push(
     name = "push_probers_image",
     format = "Docker",
