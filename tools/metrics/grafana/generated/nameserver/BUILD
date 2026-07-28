@@ -15,10 +15,3 @@ go_library(
         "@com_github_grafana_grafana_foundation_sdk_go//timeseries",
     ],
 )
-
-genrule(
-    name = "nameserver_json",
-    outs = ["nameserver.json"],
-    cmd = "$(location :nameserver) > $@",
-    tools = [":nameserver"],
-)
