@@ -161,13 +161,6 @@ proto_library(
 )
 
 proto_library(
-    name = "certgenerator_proto",
-    srcs = [
-        "certgenerator.proto",
-    ],
-)
-
-proto_library(
     name = "config_proto",
     srcs = [
         "config.proto",
