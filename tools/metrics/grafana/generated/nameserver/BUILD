@@ -16,11 +16,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "nameserver",
-    embed = [":nameserver_lib"],
-)
-
 genrule(
     name = "nameserver_json",
     outs = ["nameserver.json"],
