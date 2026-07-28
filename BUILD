@@ -234,11 +234,6 @@ buildifier(
     name = "buildifier",
 )
 
-alias(
-    name = "go",
-    actual = "@io_bazel_rules_go//go",
-)
-
 # Example usage: "bazel run //:gofmt -- -w ."
 go_sdk_tool(
     name = "gofmt",
