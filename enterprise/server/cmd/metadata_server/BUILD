@@ -31,16 +31,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "metadata_server",
-    data = [
-        "//enterprise:licenses",
-        "//enterprise/config:config_files",
-    ],
-    embed = [":metadata_server_lib"],
-    visibility = ["//visibility:public"],
-)
-
 pkg_tar(
     name = "tar",
     srcs = [":metadata_server"],
