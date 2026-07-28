@@ -19,9 +19,3 @@ go_library(
         "//server/util/log",
     ],
 )
-
-go_binary(
-    name = "cli",
-    embed = [":cli_lib"],
-    visibility = ["//visibility:public"],
-)
