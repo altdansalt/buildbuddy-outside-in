@@ -20,8 +20,3 @@ go_library(
         "@org_golang_x_sync//errgroup",
     ],
 )
-
-go_binary(
-    name = "smash",
-    embed = [":smash_lib"],
-)
