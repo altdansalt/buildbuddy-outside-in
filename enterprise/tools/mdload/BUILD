@@ -39,14 +39,6 @@ go_library(
     ],
 )
 
-go_image(
-    name = "mdload_image",
-    base = "@buildbuddy_go_image_base//image",
-    binary = ":mdload",
-    tags = ["manual"],
-    visibility = ["//visibility:public"],
-)
-
 # Definitions for uploading new default base docker image.
 container_push(
     name = "push_mdload_image",
