@@ -11,11 +11,3 @@ go_library(
     visibility = ["//visibility:private"],
     deps = ["//server/util/log"],
 )
-
-go_image(
-    name = "tcpproxy_image",
-    base = "@buildbuddy_go_image_base//image",
-    binary = ":tcpproxy",
-    tags = ["manual"],
-    visibility = ["//visibility:public"],
-)
