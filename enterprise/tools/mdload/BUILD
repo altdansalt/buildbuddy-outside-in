@@ -39,12 +39,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "mdload",
-    embed = [":mdload_lib"],
-    visibility = ["//visibility:public"],
-)
-
 go_image(
     name = "mdload_image",
     base = "@buildbuddy_go_image_base//image",
