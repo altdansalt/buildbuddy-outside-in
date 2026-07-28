@@ -32,12 +32,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "cacheload",
-    embed = [":cacheload_lib"],
-    visibility = ["//visibility:public"],
-)
-
 go_image(
     name = "cacheload_image",
     base = "@buildbuddy_go_image_base//image",
