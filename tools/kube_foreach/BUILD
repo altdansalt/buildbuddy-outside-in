@@ -7,11 +7,3 @@ go_library(
     visibility = ["//visibility:private"],
     deps = ["@org_golang_x_sync//errgroup"],
 )
-
-go_binary(
-    name = "kube_foreach",
-    embed = [":kube_foreach_lib"],
-    pure = "on",
-    static = "on",
-    visibility = ["//visibility:public"],
-)
