@@ -23,8 +23,3 @@ go_library(
         "@org_golang_google_grpc//metadata",
     ],
 )
-
-go_binary(
-    name = "mount_vfs",
-    embed = [":mount_vfs_lib"],
-)
