@@ -14,3 +14,14 @@ ts_library(
         "//proto:duration_ts_proto",
     ],
 )
+
+ts_jasmine_node_test(
+    name = "format_test",
+    srcs = ["format_test.ts"],
+    deps = [
+        ":format",
+        "//:node_modules/@types/long",
+        "//:node_modules/long",
+        "//:node_modules/tslib",
+    ],
+)
