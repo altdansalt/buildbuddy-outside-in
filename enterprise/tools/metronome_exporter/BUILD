@@ -23,12 +23,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "metronome_exporter",
-    embed = [":metronome_exporter_lib"],
-    visibility = ["//visibility:public"],
-)
-
 go_test(
     name = "metronome_exporter_test",
     size = "medium",
