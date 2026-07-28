@@ -53,9 +53,3 @@ go_library(
         "@org_golang_x_sync//errgroup",
     ],
 )
-
-go_binary(
-    name = "replay_action",
-    embed = [":replay_action_lib"],
-    visibility = ["//visibility:public"],
-)
