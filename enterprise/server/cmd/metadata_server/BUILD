@@ -5,32 +5,6 @@ load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
 package(default_visibility = ["//enterprise:__subpackages__"])
 
-go_library(
-    name = "metadata_server_lib",
-    srcs = ["main.go"],
-    importpath = "github.com/buildbuddy-io/buildbuddy/enterprise/server/cmd/metadata_server",
-    visibility = ["//visibility:public"],
-    deps = [
-        "//enterprise/server/backends/configsecrets",
-        "//enterprise/server/clientidentity",
-        "//enterprise/server/raft/metadata",
-        "//enterprise/server/remoteauth",
-        "//proto:metadata_service_go_proto",
-        "//server/config",
-        "//server/http/interceptors",
-        "//server/real_environment",
-        "//server/ssl",
-        "//server/util/grpc_server",
-        "//server/util/healthcheck",
-        "//server/util/kuberesolver",
-        "//server/util/log",
-        "//server/util/monitoring",
-        "//server/util/statusz",
-        "//server/util/tracing",
-        "//server/version",
-    ],
-)
-
 pkg_tar(
     name = "tar",
     srcs = [":metadata_server"],
