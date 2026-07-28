@@ -16,11 +16,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "cdc",
-    embed = [":cdc_lib"],
-)
-
 genrule(
     name = "cdc_json",
     outs = ["cdc.json"],
