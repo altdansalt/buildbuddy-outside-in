@@ -104,11 +104,6 @@ proto_library(
 )
 
 proto_library(
-    name = "buck_host_sharing_proto",
-    srcs = ["buck_host_sharing.proto"],
-)
-
-proto_library(
     name = "build_status_proto",
     srcs = [
         "build_status.proto",
