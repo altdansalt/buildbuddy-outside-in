@@ -137,6 +137,24 @@ pip_compile(
     requirements_txt = "requirements.lock",
 )
 
+# This rule fetches the metadata for python packages we depend on. That data is
+# required for the gazelle_python_manifest rule to update our manifest file.
+modules_mapping(
+    name = "modules_map",
+
+    # include_stub_packages: bool (default: False)
+    # If set to True, this flag automatically includes any corresponding type stub packages
+    # for the third-party libraries that are present and used. For example, if you have
+    # `boto3` as a dependency, and this flag is enabled, the corresponding `boto3-stubs`
+    # package will be automatically included in the BUILD file.
+    # Enabling this feature helps ensure that type hints and stubs are readily available
+    # for tools like type checkers and IDEs, improving the development experience and
+    # reducing manual overhead in managing separate stub packages.
+    include_stub_packages = True,
+    visibility = ["//visibility:public"],
+    wheels = all_whl_requirements,
+)
+
 exports_files(["requirements.lock"])
 
 # Gazelle python extension needs a manifest file mapping from
