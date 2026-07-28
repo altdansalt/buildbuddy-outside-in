@@ -14,9 +14,3 @@ go_library(
         "@org_golang_google_api//iterator",
     ],
 )
-
-go_binary(
-    name = "edit_instance_template",
-    embed = [":edit_instance_template_lib"],
-    visibility = ["//visibility:public"],
-)
