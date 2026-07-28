@@ -27,18 +27,6 @@ microvm_kernel(
     version = "v6.1",
 )
 
-# arm64 (v5.10)
-#
-# Build and upload with:
-#   bazel run //enterprise/vmsupport/kernel:guest_kernel_aarch64_v5_10_upload --config=remote --config=target-linux-x86-exec-multiarch
-microvm_kernel(
-    name = "guest_kernel_aarch64_v5_10",
-    out = "vmlinux-aarch64-v5.10",
-    arch = "arm64",
-    config = "microvm-kernel-aarch64-v5.10.config",
-    version = "v5.10",
-)
-
 go_test(
     name = "kernel_test",
     srcs = ["config_test.go"],
