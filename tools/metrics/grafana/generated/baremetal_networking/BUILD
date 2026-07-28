@@ -12,10 +12,3 @@ go_library(
         "@com_github_grafana_grafana_foundation_sdk_go//timeseries",
     ],
 )
-
-genrule(
-    name = "baremetal_networking_json",
-    outs = ["baremetal-networking.json"],
-    cmd = "$(location :baremetal_networking) > $@",
-    tools = [":baremetal_networking"],
-)
