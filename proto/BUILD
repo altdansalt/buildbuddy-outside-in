@@ -104,18 +104,6 @@ proto_library(
 )
 
 proto_library(
-    name = "buck_data_proto",
-    srcs = ["buck_data.proto"],
-    deps = [
-        ":buck_error_proto",
-        ":buck_host_sharing_proto",
-        "@com_google_protobuf//:duration_proto",
-        "@com_google_protobuf//:empty_proto",
-        "@com_google_protobuf//:timestamp_proto",
-    ],
-)
-
-proto_library(
     name = "buck_error_proto",
     srcs = ["buck_error.proto"],
 )
