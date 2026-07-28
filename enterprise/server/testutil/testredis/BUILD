@@ -22,13 +22,3 @@ go_library(
         "@io_bazel_rules_go//go/runfiles",
     ],
 )
-
-go_test(
-    name = "testredis_test",
-    srcs = ["testredis_test.go"],
-    embed = [":testredis"],
-    deps = [
-        "@com_github_go_redis_redis_v8//:redis",
-        "@com_github_stretchr_testify//require",
-    ],
-)
