@@ -13,23 +13,6 @@ container_push(
     tags = ["manual"],  # Don't include this target in wildcard patterns
 )
 
-oci_image(
-    name = "probers_oci_image",
-    base = "@bazel_oci_image_base",
-    entrypoint = [
-        "/cloudprober",
-        "--logtostderr",
-    ],
-    target_compatible_with = [
-        "@platforms//os:linux",
-    ],
-    tars = [
-        "//server/util/bazel:bazel_binaries_tar",
-        ":files_tar",
-    ],
-    visibility = ["//visibility:public"],
-)
-
 oci_push(
     name = "push_probers_oci_image",
     image = ":probers_oci_image",
