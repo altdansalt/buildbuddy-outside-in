@@ -164,23 +164,6 @@ container_layer(
 )
 
 container_layer(
-    name = "rootlesskit_layer",
-    directory = "/usr/bin",
-    files = select({
-        "@platforms//cpu:x86_64": [
-            # "@com_github_rootless_containers_rootlesskit-linux-amd64//:rootlessctl.bin",
-            "@com_github_rootless_containers_rootlesskit-linux-amd64//:rootlesskit.bin",
-        ],
-        "@platforms//cpu:arm64": [
-            # "@com_github_rootless_containers_rootlesskit-linux-arm64//:rootlessctl.bin",
-            "@com_github_rootless_containers_rootlesskit-linux-arm64//:rootlesskit.bin",
-        ],
-        "//conditions:default": [],
-    }),
-    tags = ["manual"],
-)
-
-container_layer(
     name = "runc_layer",
     directory = "/usr/bin",
     files = select({

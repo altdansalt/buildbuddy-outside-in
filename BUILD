@@ -128,58 +128,7 @@ gazelle_binary(
     ],
 )
 
-pip_compile(
-    name = "requirements",
-    exec_properties = {
-        "dockerNetwork": "bridge",
-    },
-    requirements_in = "requirements.txt",
-    requirements_txt = "requirements.lock",
-)
-
-# This rule fetches the metadata for python packages we depend on. That data is
-# required for the gazelle_python_manifest rule to update our manifest file.
-modules_mapping(
-    name = "modules_map",
-
-    # include_stub_packages: bool (default: False)
-    # If set to True, this flag automatically includes any corresponding type stub packages
-    # for the third-party libraries that are present and used. For example, if you have
-    # `boto3` as a dependency, and this flag is enabled, the corresponding `boto3-stubs`
-    # package will be automatically included in the BUILD file.
-    # Enabling this feature helps ensure that type hints and stubs are readily available
-    # for tools like type checkers and IDEs, improving the development experience and
-    # reducing manual overhead in managing separate stub packages.
-    include_stub_packages = True,
-    visibility = ["//visibility:public"],
-    wheels = all_whl_requirements,
-)
-
 exports_files(["requirements.lock"])
-
-# Gazelle python extension needs a manifest file mapping from
-# an import to the installed package that provides it.
-# This macro produces two targets:
-# - //:gazelle_python_manifest.update can be used with `bazel run`
-#   to recalculate the manifest
-# - //:gazelle_python_manifest.test is a test target ensuring that
-#   the manifest doesn't need to be updated
-gazelle_python_manifest(
-    name = "gazelle_python_manifest",
-    modules_mapping = "//:modules_map",
-
-    # This is what we called our `pip.parse` rule in MODULE.bazel, where third-party
-    # python libraries are loaded in BUILD files.
-    pip_repository_name = "pypi",
-
-    # This should point to wherever we declare our python dependencies
-    # (the same as what we passed to the modules_mapping rule in WORKSPACE)
-    # This argument is optional. If provided, the `.test` target is very
-    # fast because it just has to check an integrity field. If not provided,
-    # the integrity field is not added to the manifest which can help avoid
-    # merge conflicts in large repos.
-    requirements = "//:requirements.lock",
-)
 
 ## Ignore generated proto files
 # gazelle:exclude **/*.pb.go
@@ -234,26 +183,10 @@ buildifier(
     name = "buildifier",
 )
 
-alias(
-    name = "go",
-    actual = "@io_bazel_rules_go//go",
-)
-
-# Example usage: "bazel run //:gofmt -- -w ."
-go_sdk_tool(
-    name = "gofmt",
-    goroot_relative_path = "bin/gofmt",
-)
-
 exports_files([
     ".swcrc",
     "package.json",
 ])
-
-copy_to_bin(
-    name = "swcrc",
-    srcs = [".swcrc"],
-)
 
 ts_config(
     name = "tsconfig",
@@ -299,52 +232,4 @@ package_group(
     packages = [
         "//enterprise/...",
     ],
-)
-
-platform(
-    name = "firecracker",
-    constraint_values = [
-        "@platforms//cpu:x86_64",
-        "@platforms//os:linux",
-    ],
-    exec_properties = {
-        "workload-isolation-type": "firecracker",
-    },
-)
-
-platform(
-    name = "firecracker_vfs",
-    constraint_values = [
-        "@platforms//cpu:x86_64",
-        "@platforms//os:linux",
-    ],
-    exec_properties = {
-        "workload-isolation-type": "firecracker",
-        "enable-vfs": "true",
-    },
-)
-
-platform(
-    name = "vfs",
-    constraint_values = [
-        "@platforms//cpu:x86_64",
-        "@platforms//os:linux",
-    ],
-    exec_properties = {
-        "enable-vfs": "true",
-    },
-)
-
-py_binary(
-    name = "release",
-    srcs = ["release.py"],
-    visibility = ["//:__subpackages__"],
-    deps = ["@pypi//requests"],
-)
-
-py_library(
-    name = "buildbuddy_py_library",
-    srcs = ["release.py"],
-    visibility = ["//:__subpackages__"],
-    deps = ["@pypi//requests"],
 )

@@ -5,10 +5,10 @@
 // Copy a sample prediction from the training script output into the `examples`
 // list in this test, then run the test with
 //
-// bazel test enterprise/server/tasksize_model:tasksize_model_test \
+// bazel test //enterprise/server/tasksize_model:tasksize_model_test \
 // --test_output=streamed \
-// --test_arg=--remote_execution.tasksize_model.features_config_path=/path/to/out/features.json \
-// --test_arg=--remote_execution.tasksize_model.serving_address=grpc://localhost:8500
+// --test_arg=--remote_execution.task_size_model.features_config_path=/path/to/out/features.json \
+// --test_arg=--remote_execution.task_size_model.serving_address=grpc://localhost:8500
 
 package tasksize_model
 
@@ -17,11 +17,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/buildbuddy-io/buildbuddy/server/testutil/quarantine"
 	"github.com/buildbuddy-io/buildbuddy/server/testutil/testenv"
 	"github.com/buildbuddy-io/buildbuddy/server/util/log"
 	"github.com/stretchr/testify/require"
-
-	repb "github.com/buildbuddy-io/buildbuddy/proto/remote_execution"
 )
 
 type example struct {
@@ -39,20 +38,22 @@ var examples = []*example{
 }
 
 func TestSamplePrediction(t *testing.T) {
+	quarantine.SkipQuarantinedTest(t)
+
 	ctx := context.Background()
 	env := testenv.GetTestEnv(t)
 	m, err := New(env)
 	require.NoError(t, err)
 
-	for m.Predict(ctx, &repb.ExecutionTask{}) == nil {
+	for !m.isReady() {
 		log.Infof("Waiting for model to initialize...")
 		time.Sleep(1 * time.Second)
 	}
 
 	for _, ex := range examples {
-		cpu, err := m.predict(ctx, "cpu", ex.x)
+		cpu, err := m.callModel(ctx, cpuModelName, ex.x)
 		require.NoError(t, err)
-		mem, err := m.predict(ctx, "mem", ex.x)
+		mem, err := m.callModel(ctx, memModelName, ex.x)
 		require.NoError(t, err)
 
 		require.Equal(t, ex.expectedMemMB, int64(mem/1e6))

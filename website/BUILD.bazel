@@ -23,24 +23,3 @@ pnpm(
     package = "package.json",
     tags = ["manual"],
 )
-
-# Starts marketing website server in development mode
-pnpm(
-    name = "start",
-    srcs = SRCS,
-    command = "start",
-    package = "package.json",
-    tags = ["manual"],
-)
-
-# Serves production marketing website bundle
-pnpm(
-    name = "serve",
-    srcs = SRCS,
-    command = "serve",
-    package = "package.json",
-    tags = ["manual"],
-    deps = [
-        ":website",
-    ],
-)

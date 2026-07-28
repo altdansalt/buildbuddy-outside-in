@@ -13,13 +13,3 @@ filegroup(
         "//conditions:default": glob(["*.yaml"]),
     }),
 )
-
-go_library(
-    name = "bundle",
-    srcs = ["bundle.go"],
-    embedsrcs = [":config_files"],  # keep
-    importpath = "github.com/buildbuddy-io/buildbuddy/enterprise/config",
-    deps = [
-        "//server/util/fileresolver",
-    ],
-)

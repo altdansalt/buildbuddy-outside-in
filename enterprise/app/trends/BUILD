@@ -49,32 +49,6 @@ ts_library(
 )
 
 ts_library(
-    name = "trends_model",
-    srcs = ["trends_model.ts"],
-    deps = [
-        "//:node_modules/@types/long",
-        "//:node_modules/long",
-        "//app/util:proto",
-        "//enterprise/app/trends:common",
-        "//proto:stats_ts_proto",
-    ],
-)
-
-ts_library(
-    name = "trends_requests",
-    srcs = ["trends_requests.ts"],
-    deps = [
-        "//:node_modules/moment",
-        "//:node_modules/tslib",
-        "//app/capabilities",
-        "//app/service:rpc_service",
-        "//enterprise/app/filter:filter_util",
-        "//enterprise/app/trends:trends_model",
-        "//proto:stats_ts_proto",
-    ],
-)
-
-ts_library(
     name = "cache_chart",
     srcs = ["cache_chart.tsx"],
     deps = [

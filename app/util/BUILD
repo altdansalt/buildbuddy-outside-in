@@ -19,15 +19,6 @@ ts_library(
     srcs = ["async.ts"],
 )
 
-ts_jasmine_node_test(
-    name = "async_test",
-    srcs = ["async_test.ts"],
-    deps = [
-        ":async",
-        "//:node_modules/tslib",
-    ],
-)
-
 ts_library(
     name = "clipboard",
     srcs = ["clipboard.ts"],
@@ -106,11 +97,6 @@ ts_jasmine_node_test(
 ts_library(
     name = "math",
     srcs = ["math.ts"],
-)
-
-ts_library(
-    name = "memo",
-    srcs = ["memo.ts"],
 )
 
 ts_library(

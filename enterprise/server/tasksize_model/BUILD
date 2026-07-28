@@ -31,7 +31,7 @@ go_test(
         "no-sandbox",
     ],
     deps = [
-        "//proto:remote_execution_go_proto",
+        "//server/testutil/quarantine",
         "//server/testutil/testenv",
         "//server/util/log",
         "@com_github_stretchr_testify//require",

@@ -66,37 +66,3 @@ image_manifest(
     tags = ["manual"],
     user = "root",
 )
-
-image_index(
-    name = "index",
-    manifests = [":manifest"],
-    platforms = [
-        "//platforms:linux_x86_64",
-        "//platforms:linux_arm64",
-    ],
-    tags = ["manual"],
-    target_compatible_with = select({
-        # the cacerts target referenced
-        # from here currently doesn't
-        # support running on Windows
-        "@platforms//os:windows": ["@platforms//:incompatible"],
-        "//conditions:default": [],
-    }),
-)
-
-# Load a multi-platform image
-image_load(
-    name = "load",
-    # Explicitly use containerd for clarity. The container will be accessible
-    # via `nerdctl` in the "moby" namespace.
-    #
-    # We use containerd, as advised by `rules_img`, to avoid `docker load`,
-    # which, if the host system is not using the containerd backend for docker,
-    # will create a custom docker manifest.
-    # Loading into containerd allows us to load the exact OCI image we've built
-    # with the expected digest.
-    daemon = "containerd",
-    image = ":index",  # References an image_index
-    tag = "bb-distroless_base-nossl:latest",
-    tags = ["manual"],
-)

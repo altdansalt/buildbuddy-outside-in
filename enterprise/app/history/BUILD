@@ -51,12 +51,3 @@ ts_library(
         "//proto:invocation_ts_proto",
     ],
 )
-
-ts_library(
-    name = "history_tabs",
-    srcs = ["history_tabs.tsx"],
-    deps = [
-        "//:node_modules/@types/react",
-        "//:node_modules/react",
-    ],
-)

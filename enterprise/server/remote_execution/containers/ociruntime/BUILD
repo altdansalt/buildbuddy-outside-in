@@ -135,37 +135,10 @@ go_test(
     ],
 )
 
-# Manual test for NVIDIA GPU support.
-#
-# From a Linux machine with an NVIDIA GPU:
-# - Install `nvidia-container-toolkit` (need `nvidia-ctk` in PATH)
-# - Run `sudo nvidia-ctk cdi generate --output=/var/run/cdi/nvidia.yaml` which
-#   creates a CDI spec.
-# - Run the executor with OCI runtime enabled and --executor.oci.cdi_devices=nvidia.com/gpu=all
-# - Run this test against the executor with bazel, e.g. --config=local-rbe-linux
-sh_test(
-    name = "nvidia_gpu_test",
-    srcs = ["nvidia_gpu_test.sh"],
-    exec_properties = {
-        "test.workload-isolation-type": "oci",
-        "test.container-image": "docker://nvidia/cuda:12.4.1-devel-ubuntu22.04",
-    },
-    tags = ["manual"],
-    target_compatible_with = ["@platforms//os:linux"],
-)
-
 alias(
     name = "crun",
     actual = select({
         "@platforms//cpu:x86_64": "@com_github_containers_crun_crun-linux-amd64//file:crun",
         "@platforms//cpu:aarch64": "@com_github_containers_crun_crun-linux-arm64//file:crun",
-    }),
-)
-
-alias(
-    name = "busybox",
-    actual = select({
-        "@platforms//cpu:x86_64": "@net_busybox_busybox-linux-amd64//file:busybox",
-        "@platforms//cpu:aarch64": "@net_busybox_busybox-linux-arm64//file:busybox",
     }),
 )

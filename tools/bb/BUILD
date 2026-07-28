@@ -19,10 +19,3 @@ alias(
     }),
     visibility = ["//tools/lint:__pkg__"],
 )
-
-py_binary(
-    name = "update_version",
-    srcs = ["update_version.py"],
-    main = "update_version.py",
-    visibility = ["//:__subpackages__"],
-)
