@@ -302,17 +302,6 @@ package_group(
 )
 
 platform(
-    name = "firecracker",
-    constraint_values = [
-        "@platforms//cpu:x86_64",
-        "@platforms//os:linux",
-    ],
-    exec_properties = {
-        "workload-isolation-type": "firecracker",
-    },
-)
-
-platform(
     name = "firecracker_vfs",
     constraint_values = [
         "@platforms//cpu:x86_64",
