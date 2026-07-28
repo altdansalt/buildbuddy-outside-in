@@ -13,12 +13,3 @@ py_binary(
     srcs = ["simulate_traffic.py"],
     visibility = ["//:__subpackages__"],
 )
-
-py_library(
-    name = "metrics_py_library",
-    srcs = [
-        "process_dashboard.py",
-        "simulate_traffic.py",
-    ],
-    visibility = ["//:__subpackages__"],
-)
