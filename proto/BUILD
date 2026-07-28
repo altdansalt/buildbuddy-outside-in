@@ -2141,15 +2141,6 @@ ts_proto_library(
 )
 
 ts_proto_library(
-    name = "build_status_ts_proto",
-    proto = ":build_status_proto",
-    deps = [
-        ":any_ts_proto",
-        ":wrappers_ts_proto",
-    ],
-)
-
-ts_proto_library(
     name = "target_ts_proto",
     proto = ":target_proto",
     deps = [
