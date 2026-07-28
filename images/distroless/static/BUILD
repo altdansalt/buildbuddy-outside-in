@@ -119,23 +119,6 @@ image_manifest(
     user = "root",
 )
 
-image_index(
-    name = "index",
-    manifests = [":manifest"],
-    platforms = [
-        "//platforms:linux_x86_64",
-        "//platforms:linux_arm64",
-    ],
-    tags = ["manual"],
-    target_compatible_with = select({
-        # the cacerts target referenced
-        # from here currently doesn't
-        # support running on Windows
-        "@platforms//os:windows": ["@platforms//:incompatible"],
-        "//conditions:default": [],
-    }),
-)
-
 # Load a multi-platform image
 image_load(
     name = "load",
