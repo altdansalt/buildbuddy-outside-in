@@ -31,12 +31,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "gateway",
-    embed = [":gateway_lib"],
-    visibility = ["//visibility:public"],
-)
-
 go_image(
     name = "gateway_go_image",
     base = "@buildbuddy_go_image_base//image",
