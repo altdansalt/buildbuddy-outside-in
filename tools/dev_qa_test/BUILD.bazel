@@ -6,14 +6,6 @@ load(
 )
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 
-sh_binary(
-    name = "dev_qa_test_runner",
-    srcs = ["dev_qa_test_runner.sh"],
-    deps = [
-        "@bazel_tools//tools/bash/runfiles",
-    ],
-)
-
 bazel_integration_test(
     name = "rules_python_dev_qa_test",
     bazel_binaries = bazel_binaries,
