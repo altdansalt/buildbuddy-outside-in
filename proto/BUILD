@@ -2505,11 +2505,6 @@ ts_proto_library(
 )
 
 ts_proto_library(
-    name = "execution_graph_ts_proto",
-    proto = ":execution_graph_proto",
-)
-
-ts_proto_library(
     name = "runner_ts_proto",
     proto = ":runner_proto",
     deps = [
