@@ -14,11 +14,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "go_runtime",
-    embed = [":go_runtime_lib"],
-)
-
 genrule(
     name = "go_runtime_json",
     outs = ["go-runtime.json"],
