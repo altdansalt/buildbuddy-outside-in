@@ -21,9 +21,3 @@ sh_test(
 exports_files(
     srcs = ["install.sh"],
 )
-
-py_binary(
-    name = "release",
-    srcs = ["release.py"],
-    visibility = ["//:__subpackages__"],
-)
