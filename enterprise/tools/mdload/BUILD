@@ -6,39 +6,6 @@ load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
 package(default_visibility = ["//enterprise:__subpackages__"])
 
-go_library(
-    name = "mdload_lib",
-    srcs = ["mdload.go"],
-    importpath = "github.com/buildbuddy-io/buildbuddy/enterprise/tools/mdload",
-    visibility = ["//visibility:private"],
-    deps = [
-        "//enterprise/server/filestore",
-        "//proto:metadata_go_proto",
-        "//proto:metadata_service_go_proto",
-        "//proto:remote_execution_go_proto",
-        "//proto:resource_go_proto",
-        "//proto:storage_go_proto",
-        "//server/interfaces",
-        "//server/metrics",
-        "//server/real_environment",
-        "//server/remote_cache/digest",
-        "//server/util/flag",
-        "//server/util/grpc_client",
-        "//server/util/log",
-        "//server/util/monitoring",
-        "//server/util/proto",
-        "//server/util/qps",
-        "//server/util/retry",
-        "//server/util/status",
-        "@com_github_jonboulle_clockwork//:clockwork",
-        "@com_github_prometheus_client_golang//prometheus",
-        "@com_github_prometheus_client_golang//prometheus/promauto",
-        "@org_golang_google_grpc//:grpc",
-        "@org_golang_google_grpc//metadata",
-        "@org_golang_x_sync//errgroup",
-    ],
-)
-
 # Definitions for uploading new default base docker image.
 container_push(
     name = "push_mdload_image",
