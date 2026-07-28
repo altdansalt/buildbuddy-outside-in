@@ -23,14 +23,6 @@ pkg_tar(
     srcs = [":mdload"],
 )
 
-oci_image(
-    name = "oci_image",
-    base = "@buildbuddy_go_oci_image_base",
-    entrypoint = ["/mdload"],
-    target_compatible_with = ["@platforms//os:linux"],
-    tars = [":tar"],
-)
-
 oci_push(
     name = "push",
     image = ":oci_image",
