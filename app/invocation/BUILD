@@ -512,17 +512,6 @@ ts_library(
 )
 
 ts_jasmine_node_test(
-    name = "invocation_model_test",
-    srcs = ["invocation_model_test.ts"],
-    deps = [
-        ":invocation_model",
-        "//:node_modules/tslib",
-        "//proto:build_event_stream_ts_proto",
-        "//proto:invocation_ts_proto",
-    ],
-)
-
-ts_jasmine_node_test(
     name = "invocation_suggestion_card_test",
     srcs = ["invocation_suggestion_card_test.ts"],
     deps = [
