@@ -188,11 +188,6 @@ exports_files([
     "package.json",
 ])
 
-copy_to_bin(
-    name = "swcrc",
-    srcs = [".swcrc"],
-)
-
 ts_config(
     name = "tsconfig",
     src = ":tsconfig.json",
