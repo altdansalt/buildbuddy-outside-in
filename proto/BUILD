@@ -1858,24 +1858,6 @@ go_proto_library(
 )
 
 go_proto_library(
-    name = "kythe_service_go_proto",
-    importpath = "github.com/buildbuddy-io/buildbuddy/proto/kythe_service",
-    mode = "services_only",
-    proto = ":kythe_service_proto",
-    deps = [
-        "@io_kythe//kythe/proto:analysis_go_proto",
-        "@io_kythe//kythe/proto:explore_go_proto",
-        "@io_kythe//kythe/proto:filetree_go_proto",
-        "@io_kythe//kythe/proto:graph_go_proto",
-        "@io_kythe//kythe/proto:identifier_go_proto",
-        "@io_kythe//kythe/proto:link_go_proto",
-        "@io_kythe//kythe/proto:status_service_go_proto",
-        "@io_kythe//kythe/proto:storage_go_proto",
-        "@io_kythe//kythe/proto:xref_go_proto",
-    ],
-)
-
-go_proto_library(
     name = "ociregistry_go_proto",
     importpath = "github.com/buildbuddy-io/buildbuddy/proto/ociregistry",
     proto = ":ociregistry_proto",
