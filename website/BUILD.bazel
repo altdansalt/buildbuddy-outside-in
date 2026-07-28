@@ -32,15 +32,3 @@ pnpm(
     package = "package.json",
     tags = ["manual"],
 )
-
-# Serves production marketing website bundle
-pnpm(
-    name = "serve",
-    srcs = SRCS,
-    command = "serve",
-    package = "package.json",
-    tags = ["manual"],
-    deps = [
-        ":website",
-    ],
-)
