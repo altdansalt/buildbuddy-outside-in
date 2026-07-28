@@ -32,14 +32,6 @@ go_library(
     ],
 )
 
-go_image(
-    name = "cacheload_image",
-    base = "@buildbuddy_go_image_base//image",
-    binary = ":cacheload",
-    tags = ["manual"],
-    visibility = ["//visibility:public"],
-)
-
 # Definitions for uploading new default base docker image.
 container_push(
     name = "push_cacheload_image",
