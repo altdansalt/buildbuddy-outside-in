@@ -33,16 +33,6 @@ container_push(
     tags = ["manual"],  # Don't include this target in wildcard patterns
 )
 
-pkg_tar(
-    name = "files_tar",
-    srcs = [
-        "//tools/probers/bazelcache",
-        "//tools/probers/bazelrbe",
-        "//tools/probers/remote_runner",
-        "@cloudprober",
-    ],
-)
-
 oci_image(
     name = "probers_oci_image",
     base = "@bazel_oci_image_base",
