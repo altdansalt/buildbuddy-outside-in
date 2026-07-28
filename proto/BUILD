@@ -782,13 +782,6 @@ proto_library(
 )
 
 proto_library(
-    name = "execution_graph_proto",
-    srcs = [
-        "execution_graph.proto",
-    ],
-)
-
-proto_library(
     name = "bazel_config_proto",
     srcs = ["bazel_config.proto"],
     deps = [
