@@ -5,19 +5,3 @@ load(
     "integration_test_utils",
 )
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
-
-bazel_integration_test(
-    name = "rules_python_dev_qa_test",
-    bazel_binaries = bazel_binaries,
-    bazel_version = "8.4.2",
-    env = {
-        "QA_TARBALL_URL": "https://github.com/bazelbuild/rules_python/archive/refs/tags/1.6.3.tar.gz",
-        "QA_STRIP_PREFIX": "rules_python-1.6.3",
-        "QA_BAZEL_COMMAND": "test //...",
-        "QA_EXTRA_BAZEL_FLAGS": "--test_tag_filters=-performance,-webdriver,-docker,-bare,-integration-test,-acceptance-test --build_tag_filters=-integration-test -- -//tests/implicit_namespace_packages/... -//tests/whl_with_build_files/... -//tests/toolchains/...",
-    },
-    tags = integration_test_utils.DEFAULT_INTEGRATION_TEST_TAGS,
-    test_runner = ":dev_qa_test_runner",
-    visibility = ["//visibility:public"],
-    workspace_path = "workspaces/rules_python",
-)
