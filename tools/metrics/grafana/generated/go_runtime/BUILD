@@ -13,10 +13,3 @@ go_library(
         "@com_github_grafana_grafana_foundation_sdk_go//timeseries",
     ],
 )
-
-genrule(
-    name = "go_runtime_json",
-    outs = ["go-runtime.json"],
-    cmd = "$(location :go_runtime) > $@",
-    tools = [":go_runtime"],
-)
