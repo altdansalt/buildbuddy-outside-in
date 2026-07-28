@@ -13,11 +13,6 @@ package(
     "buildbuddy_image",  # container_image
 ]]
 
-alias(
-    name = "server",
-    actual = ":buildbuddy",
-)
-
 genquery(
     name = "server_enterprise_deps",
     expression = "filter(//enterprise, deps(//server))",
