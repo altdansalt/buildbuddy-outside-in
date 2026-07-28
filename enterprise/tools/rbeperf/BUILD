@@ -35,11 +35,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "rbeperf",
-    embed = [":rbeperf_lib"],
-)
-
 go_image(
     name = "rbeperf_image",
     base = "@buildbuddy_go_image_base//image",
