@@ -130,30 +130,6 @@ gazelle_binary(
 
 exports_files(["requirements.lock"])
 
-# Gazelle python extension needs a manifest file mapping from
-# an import to the installed package that provides it.
-# This macro produces two targets:
-# - //:gazelle_python_manifest.update can be used with `bazel run`
-#   to recalculate the manifest
-# - //:gazelle_python_manifest.test is a test target ensuring that
-#   the manifest doesn't need to be updated
-gazelle_python_manifest(
-    name = "gazelle_python_manifest",
-    modules_mapping = "//:modules_map",
-
-    # This is what we called our `pip.parse` rule in MODULE.bazel, where third-party
-    # python libraries are loaded in BUILD files.
-    pip_repository_name = "pypi",
-
-    # This should point to wherever we declare our python dependencies
-    # (the same as what we passed to the modules_mapping rule in WORKSPACE)
-    # This argument is optional. If provided, the `.test` target is very
-    # fast because it just has to check an integrity field. If not provided,
-    # the integrity field is not added to the manifest which can help avoid
-    # merge conflicts in large repos.
-    requirements = "//:requirements.lock",
-)
-
 ## Ignore generated proto files
 # gazelle:exclude **/*.pb.go
 # gazelle:exclude bundle.go
