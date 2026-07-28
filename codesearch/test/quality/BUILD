@@ -24,9 +24,3 @@ go_library(
         "@org_golang_google_protobuf//encoding/protojson",
     ],
 )
-
-go_binary(
-    name = "rater",
-    embed = [":rater_lib"],
-    visibility = ["//visibility:public"],
-)
