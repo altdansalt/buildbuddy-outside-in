@@ -13,11 +13,3 @@ go_library(
         "//server/util/status",
     ],
 )
-
-go_binary(
-    name = "bbcert",
-    embed = [":bbcert_lib"],
-    pure = "on",
-    static = "on",
-    visibility = ["//visibility:public"],
-)
