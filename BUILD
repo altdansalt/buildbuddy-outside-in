@@ -233,14 +233,3 @@ package_group(
         "//enterprise/...",
     ],
 )
-
-platform(
-    name = "vfs",
-    constraint_values = [
-        "@platforms//cpu:x86_64",
-        "@platforms//os:linux",
-    ],
-    exec_properties = {
-        "enable-vfs": "true",
-    },
-)
