@@ -30,14 +30,6 @@ go_library(
     ],
 )
 
-go_image(
-    name = "server_image",
-    base = "@buildbuddy_go_image_base//image",
-    binary = ":server",
-    tags = ["manual"],
-    visibility = ["//visibility:public"],
-)
-
 pkg_tar(
     name = "tar",
     srcs = [":server"],
