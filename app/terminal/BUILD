@@ -29,6 +29,12 @@ ts_library(
 )
 
 ts_jasmine_node_test(
+    name = "text_test",
+    srcs = ["text_test.ts"],
+    deps = [":terminal"],
+)
+
+ts_jasmine_node_test(
     name = "terminal_copy_test",
     srcs = ["terminal_copy_test.ts"],
     deps = [":copy"],
