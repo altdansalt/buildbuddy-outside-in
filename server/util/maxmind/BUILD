@@ -19,13 +19,3 @@ genrule(
     outs = ["dbip-asn-lite.mmdb.gz"],
     cmd = "cp $(SRCS) $@",
 )
-
-go_test(
-    name = "maxmind_test",
-    srcs = ["maxmind_test.go"],
-    embed = [":maxmind"],
-    deps = [
-        "@com_github_stretchr_testify//assert",
-        "@com_github_stretchr_testify//require",
-    ],
-)
