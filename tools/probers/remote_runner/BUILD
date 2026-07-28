@@ -15,9 +15,3 @@ go_library(
         "@org_golang_google_grpc//metadata",
     ],
 )
-
-go_binary(
-    name = "remote_runner",
-    embed = [":remote_runner_lib"],
-    visibility = ["//visibility:public"],
-)
