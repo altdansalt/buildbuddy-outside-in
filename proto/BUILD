@@ -1811,16 +1811,6 @@ go_proto_library(
 )
 
 go_proto_library(
-    name = "search_rating_go_proto",
-    importpath = "github.com/buildbuddy-io/buildbuddy/proto/search_rating",
-    proto = ":search_rating_proto",
-    deps = [
-        ":git_go_proto",
-        ":search_go_proto",
-    ],
-)
-
-go_proto_library(
     name = "cache_service_go_proto",
     importpath = "github.com/buildbuddy-io/buildbuddy/proto/cache_service",
     mode = "services_only",
