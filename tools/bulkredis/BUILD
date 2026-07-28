@@ -10,11 +10,3 @@ go_library(
         "@com_github_go_redis_redis_v8//:redis",
     ],
 )
-
-go_binary(
-    name = "bulkredis",
-    embed = [":bulkredis_lib"],
-    pure = "on",
-    static = "on",
-    visibility = ["//visibility:public"],
-)
