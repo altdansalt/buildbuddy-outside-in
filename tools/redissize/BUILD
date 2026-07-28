@@ -12,9 +12,3 @@ go_library(
         "@com_github_google_uuid//:uuid",
     ],
 )
-
-go_binary(
-    name = "redissize",
-    embed = [":redissize_lib"],
-    visibility = ["//visibility:public"],
-)
