@@ -27,8 +27,3 @@ go_library(
         "@org_golang_x_crypto//ssh",
     ],
 )
-
-go_binary(
-    name = "certgenerator",
-    embed = [":certgenerator_lib"],
-)
