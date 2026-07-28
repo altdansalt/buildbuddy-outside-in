@@ -28,13 +28,6 @@ go_library(
     ],
 )
 
-go_image(
-    name = "density_go_image",
-    base = "@buildbuddy_go_image_base//image",
-    binary = ":density",
-    tags = ["manual"],
-)
-
 container_image(
     name = "density_image",
     base = ":density_go_image",
