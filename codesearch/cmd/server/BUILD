@@ -61,15 +61,6 @@ pkg_tar(
     srcs = [":server"],
 )
 
-oci_image(
-    name = "oci_image",
-    base = "@buildbuddy_go_oci_image_base",
-    entrypoint = ["/server"],
-    target_compatible_with = ["@platforms//os:linux"],
-    tars = [":tar"],
-    visibility = ["//visibility:public"],
-)
-
 oci_push(
     name = "push",
     image = ":oci_image",
