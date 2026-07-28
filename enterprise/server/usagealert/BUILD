@@ -34,12 +34,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "usagealert",
-    embed = [":usagealert_lib"],
-    visibility = ["//visibility:public"],
-)
-
 go_test(
     name = "usagealert_test",
     srcs = ["usagealert_test.go"],
