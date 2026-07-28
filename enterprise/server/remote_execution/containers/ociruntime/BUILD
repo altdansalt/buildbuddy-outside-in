@@ -161,11 +161,3 @@ alias(
         "@platforms//cpu:aarch64": "@com_github_containers_crun_crun-linux-arm64//file:crun",
     }),
 )
-
-alias(
-    name = "busybox",
-    actual = select({
-        "@platforms//cpu:x86_64": "@net_busybox_busybox-linux-amd64//file:busybox",
-        "@platforms//cpu:aarch64": "@net_busybox_busybox-linux-arm64//file:busybox",
-    }),
-)
