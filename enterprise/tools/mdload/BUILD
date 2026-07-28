@@ -6,18 +6,6 @@ load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
 package(default_visibility = ["//enterprise:__subpackages__"])
 
-# Definitions for uploading new default base docker image.
-container_push(
-    name = "push_mdload_image",
-    format = "Docker",
-    image = ":mdload_image",
-    registry = "gcr.io",
-    repository = "flame-build/mdload",  # Note flame-build, not flame-public.
-    # Set the image tag with the bazel run flag "--//deployment:image_tag=TAG"
-    tag_file = "//deployment:image_tag_file",
-    tags = ["manual"],  # Don't include this target in wildcard patterns
-)
-
 pkg_tar(
     name = "tar",
     srcs = [":mdload"],
