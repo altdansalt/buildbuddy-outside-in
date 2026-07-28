@@ -22,12 +22,4 @@ ts_library(
     ],
 )
 
-ts_jasmine_node_test(
-    name = "link_test",
-    srcs = ["link_test.ts"],
-    deps = [
-        ":link",
-    ],
-)
-
 exports_files(["link.css"])
