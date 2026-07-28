@@ -2,11 +2,6 @@ load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 
 package(default_visibility = ["//enterprise:__subpackages__"])
 
-go_binary(
-    name = "vmstart",
-    embed = [":vmstart_lib"],
-)
-
 go_library(
     name = "vmstart_lib",
     srcs = ["vmstart.go"],
