@@ -35,14 +35,6 @@ go_library(
     ],
 )
 
-go_image(
-    name = "rbeperf_image",
-    base = "@buildbuddy_go_image_base//image",
-    binary = ":rbeperf",
-    tags = ["manual"],
-    visibility = ["//visibility:public"],
-)
-
 pkg_tar(
     name = "tar",
     srcs = [":rbeperf"],
