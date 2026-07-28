@@ -30,12 +30,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "server",
-    embed = [":server_lib"],
-    visibility = ["//visibility:public"],
-)
-
 go_image(
     name = "server_image",
     base = "@buildbuddy_go_image_base//image",
