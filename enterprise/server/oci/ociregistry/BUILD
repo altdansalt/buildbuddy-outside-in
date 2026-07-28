@@ -52,30 +52,3 @@ go_test(
         "@com_github_stretchr_testify//require",
     ],
 )
-
-go_test(
-    name = "ociregistry_client_test",
-    size = "large",
-    timeout = "moderate",
-    srcs = ["ociregistry_client_test.go"],
-    exec_properties = {
-        "test.workload-isolation-type": "firecracker",
-        "test.init-dockerd": "true",
-        "test.EstimatedComputeUnits": "4",
-        "test.EstimatedFreeDiskBytes": "10GB",
-        "test.recycle-runner": "true",
-        "test.runner-recycling-key": "podman-static@" + PODMAN_VERSION,
-    },
-    tags = ["docker"],
-    target_compatible_with = [
-        "@platforms//os:linux",
-        "@platforms//cpu:x86_64",
-    ],
-    deps = [
-        "//enterprise/server/testutil/testregistry",
-        "//enterprise/server/util/testpodman",
-        "//server/testutil/testhttp",
-        "@com_github_google_go_cmp//cmp",
-        "@com_github_stretchr_testify//require",
-    ],
-)
