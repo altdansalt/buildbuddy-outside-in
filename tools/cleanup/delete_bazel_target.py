@@ -191,6 +191,7 @@ def main() -> int:
             bazel(repo),
             "run",
             "--noshow_progress",
+            "--experimental_output_paths=off",
             BUILDOZER_TARGET,
             "--",
             "delete",
