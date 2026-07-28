@@ -41,13 +41,6 @@ go_binary(
     visibility = ["//visibility:public"],
 )
 
-container_image(
-    name = "base_image",
-    base = "@buildbuddy_go_image_base//image",
-    tags = ["manual"],
-    visibility = ["//visibility:public"],
-)
-
 pkg_tar(
     name = "tar",
     srcs = [":metadata_server"],
