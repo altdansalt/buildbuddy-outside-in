@@ -15,9 +15,3 @@ go_library(
         "//server/util/log",
     ],
 )
-
-go_binary(
-    name = "sendmail",
-    embed = [":sendmail_lib"],
-    visibility = ["//visibility:public"],
-)
