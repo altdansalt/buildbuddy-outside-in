@@ -28,12 +28,6 @@ go_library(
     ],
 )
 
-go_binary(
-    name = "density",
-    embed = [":density_lib"],
-    visibility = ["//visibility:public"],
-)
-
 go_image(
     name = "density_go_image",
     base = "@buildbuddy_go_image_base//image",
