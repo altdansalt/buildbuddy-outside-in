@@ -273,10 +273,3 @@ platform(
         "enable-vfs": "true",
     },
 )
-
-py_binary(
-    name = "release",
-    srcs = ["release.py"],
-    visibility = ["//:__subpackages__"],
-    deps = ["@pypi//requests"],
-)
